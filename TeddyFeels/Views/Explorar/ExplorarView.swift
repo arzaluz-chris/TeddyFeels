@@ -55,7 +55,7 @@ struct ExplorarView: View {
                 .padding(.top, TeddyTheme.spacingMD)
                 .padding(.bottom, 100)
             }
-            .background(TeddyTheme.background)
+            .background { TeddyAnimatedBackground().ignoresSafeArea() }
             .navigationTitle("Explorar")
             .navigationBarTitleDisplayMode(.large)
         }
@@ -91,7 +91,8 @@ struct ExplorarView: View {
                 .foregroundColor(TeddyTheme.textTertiary)
         }
         .padding(TeddyTheme.cardPadding)
-        .background(TeddyTheme.surface)
+        .background(TeddyTheme.glassFill)
+        .background(.ultraThinMaterial)
         .clipShape(RoundedRectangle(cornerRadius: TeddyTheme.cardRadius))
         .shadow(color: TeddyTheme.cardShadow.color, radius: TeddyTheme.cardShadow.radius, x: 0, y: TeddyTheme.cardShadow.y)
     }

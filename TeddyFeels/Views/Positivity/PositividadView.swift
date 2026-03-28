@@ -110,7 +110,7 @@ struct PositividadView: View {
             .padding(.top, TeddyTheme.spacingMD)
             .padding(.bottom, 100)
         }
-        .background(TeddyTheme.background)
+        .background { TeddyAnimatedBackground().ignoresSafeArea() }
         .navigationTitle("La Regla 3:1")
         .teddyCelebration(counter: $confettiCounter)
     }

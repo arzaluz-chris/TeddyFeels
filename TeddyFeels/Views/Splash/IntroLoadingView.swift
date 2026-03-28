@@ -2,13 +2,19 @@ import SwiftUI
 
 struct IntroLoadingView: View {
     @Binding var welcome: Bool
+    var isColdStart: Bool = true
+
     @State private var scale = 0.5
     @State private var opacity = 0.0
     @State private var isPulsing = false
 
+    private var duration: Double {
+        isColdStart ? 2.5 : 1.2
+    }
+
     var body: some View {
         ZStack {
-            TeddyTheme.background.ignoresSafeArea()
+            TeddyAnimatedBackground()
 
             VStack(spacing: TeddyTheme.spacingXL) {
                 HStack {
@@ -28,18 +34,26 @@ struct IntroLoadingView: View {
                     .opacity(opacity)
             }
         }
+        .ignoresSafeArea()
         .onAppear {
-            withAnimation(.spring(response: 0.8, dampingFraction: 0.6)) {
+            // Reset state for re-shows
+            scale = 0.5
+            opacity = 0.0
+            isPulsing = false
+
+            withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
                 scale = 1.0
             }
-            withAnimation(.easeIn(duration: 0.8).delay(0.3)) {
+            withAnimation(.easeIn(duration: 0.4).delay(0.2)) {
                 opacity = 1.0
             }
-            withAnimation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true).delay(1.0)) {
-                isPulsing = true
+            if isColdStart {
+                withAnimation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true).delay(0.8)) {
+                    isPulsing = true
+                }
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                withAnimation(.easeInOut(duration: 0.6)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+                withAnimation(.easeInOut(duration: 0.4)) {
                     welcome = true
                 }
             }

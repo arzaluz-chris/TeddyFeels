@@ -55,7 +55,7 @@ struct PINSetupView: View {
                 .padding(TeddyTheme.screenPadding)
             }
         }
-        .background(TeddyTheme.background)
+        .background { TeddyAnimatedBackground().ignoresSafeArea() }
     }
 
     // MARK: - Step 1: Create PIN
@@ -158,7 +158,8 @@ struct PINSetupView: View {
 
                 TextField("Tu respuesta...", text: $answer1)
                     .padding(TeddyTheme.cardPadding)
-                    .background(TeddyTheme.surface)
+                    .background(TeddyTheme.glassFill)
+                        .background(.ultraThinMaterial)
                     .clipShape(RoundedRectangle(cornerRadius: TeddyTheme.buttonRadius))
                     .shadow(color: TeddyTheme.cardShadow.color, radius: TeddyTheme.cardShadow.radius, x: 0, y: TeddyTheme.cardShadow.y)
             }
@@ -179,7 +180,8 @@ struct PINSetupView: View {
 
                 TextField("Tu respuesta...", text: $answer2)
                     .padding(TeddyTheme.cardPadding)
-                    .background(TeddyTheme.surface)
+                    .background(TeddyTheme.glassFill)
+                        .background(.ultraThinMaterial)
                     .clipShape(RoundedRectangle(cornerRadius: TeddyTheme.buttonRadius))
                     .shadow(color: TeddyTheme.cardShadow.color, radius: TeddyTheme.cardShadow.radius, x: 0, y: TeddyTheme.cardShadow.y)
             }
@@ -262,9 +264,10 @@ struct PINKeypadView: View {
                                     .font(.system(size: key == "⌫" ? 20 : 24, weight: .semibold, design: .rounded))
                                     .foregroundColor(TeddyTheme.textPrimary)
                                     .frame(width: 72, height: 52)
-                                    .background(TeddyTheme.surface)
+                                    .background(TeddyTheme.glassFill)
+                                    .background(.ultraThinMaterial)
                                     .clipShape(RoundedRectangle(cornerRadius: 14))
-                                    .shadow(color: TeddyTheme.cardShadow.color, radius: TeddyTheme.cardShadow.radius, x: 0, y: TeddyTheme.cardShadow.y)
+                                    .shadow(color: TeddyTheme.cardShadow.color, radius: 2, x: 0, y: 1)
                             }
                         }
                     }

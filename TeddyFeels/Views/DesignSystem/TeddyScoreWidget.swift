@@ -9,19 +9,23 @@ struct TeddyScoreWidget: View {
             onTap?()
         } label: {
             HStack(spacing: TeddyTheme.spacingMD) {
-                // Circular progress ring
                 ZStack {
                     Circle()
-                        .stroke(TeddyTheme.border, lineWidth: 6)
+                        .stroke(Color.white.opacity(0.3), lineWidth: 6)
 
                     Circle()
                         .trim(from: 0, to: score / 100)
                         .stroke(
-                            TeddyTheme.primary,
+                            LinearGradient(
+                                colors: [TeddyTheme.primary, TeddyTheme.primaryLight],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
                             style: StrokeStyle(lineWidth: 6, lineCap: .round)
                         )
                         .rotationEffect(.degrees(-90))
                         .animation(.spring(response: 0.8), value: score)
+                        .shadow(color: TeddyTheme.primary.opacity(0.4), radius: 4)
 
                     Image(systemName: "bolt.fill")
                         .font(.system(size: 18, weight: .bold))
@@ -46,9 +50,7 @@ struct TeddyScoreWidget: View {
                     .foregroundColor(TeddyTheme.textTertiary)
             }
             .padding(TeddyTheme.cardPadding)
-            .background(TeddyTheme.surface)
-            .clipShape(RoundedRectangle(cornerRadius: TeddyTheme.cardRadius))
-            .shadow(color: TeddyTheme.cardShadow.color, radius: TeddyTheme.cardShadow.radius, x: 0, y: TeddyTheme.cardShadow.y)
+            .glassCard()
         }
         .buttonStyle(.plain)
     }

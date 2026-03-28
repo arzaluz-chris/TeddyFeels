@@ -23,7 +23,8 @@ struct TipsGlobalesView: View {
                         .font(TeddyTheme.body())
                 }
                 .padding(TeddyTheme.spacingMD)
-                .background(TeddyTheme.surface)
+                .background(TeddyTheme.glassFill)
+                .background(.ultraThinMaterial)
                 .clipShape(RoundedRectangle(cornerRadius: TeddyTheme.buttonRadius))
                 .shadow(color: TeddyTheme.cardShadow.color, radius: TeddyTheme.cardShadow.radius, x: 0, y: TeddyTheme.cardShadow.y)
 
@@ -68,7 +69,7 @@ struct TipsGlobalesView: View {
             .padding(.top, TeddyTheme.spacingMD)
             .padding(.bottom, 100)
         }
-        .background(TeddyTheme.background)
+        .background { TeddyAnimatedBackground().ignoresSafeArea() }
         .navigationTitle("Tips de Bienestar")
     }
 }

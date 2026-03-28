@@ -25,8 +25,6 @@ struct TeddyBearBanner: View {
             Spacer(minLength: 0)
         }
         .padding(TeddyTheme.cardPadding)
-        .background(TeddyTheme.surface)
-        .clipShape(RoundedRectangle(cornerRadius: TeddyTheme.cardRadius))
-        .shadow(color: TeddyTheme.cardShadow.color, radius: TeddyTheme.cardShadow.radius, x: 0, y: TeddyTheme.cardShadow.y)
+        .glassCard(tint: TeddyTheme.primary, tintOpacity: 0.05)
     }
 }

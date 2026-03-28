@@ -17,7 +17,7 @@ struct TeddySectionHeader: View {
                 Button(action: action) {
                     Text(actionTitle)
                         .font(TeddyTheme.caption())
-                        .foregroundColor(TeddyTheme.primary)
+                        .foregroundColor(TeddyTheme.primaryLight)
                 }
             }
         }

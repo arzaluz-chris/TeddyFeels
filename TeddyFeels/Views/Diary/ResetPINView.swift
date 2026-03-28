@@ -40,7 +40,8 @@ struct ResetPINView: View {
                                 TextField("Tu respuesta...", text: $answer1)
                                     .textInputAutocapitalization(.never)
                                     .padding(TeddyTheme.cardPadding)
-                                    .background(TeddyTheme.surface)
+                                    .background(TeddyTheme.glassFill)
+                                    .background(.ultraThinMaterial)
                                     .clipShape(RoundedRectangle(cornerRadius: TeddyTheme.buttonRadius))
                                     .shadow(color: TeddyTheme.cardShadow.color, radius: TeddyTheme.cardShadow.radius, x: 0, y: TeddyTheme.cardShadow.y)
                             }
@@ -54,7 +55,8 @@ struct ResetPINView: View {
                                 TextField("Tu respuesta...", text: $answer2)
                                     .textInputAutocapitalization(.never)
                                     .padding(TeddyTheme.cardPadding)
-                                    .background(TeddyTheme.surface)
+                                    .background(TeddyTheme.glassFill)
+                                    .background(.ultraThinMaterial)
                                     .clipShape(RoundedRectangle(cornerRadius: TeddyTheme.buttonRadius))
                                     .shadow(color: TeddyTheme.cardShadow.color, radius: TeddyTheme.cardShadow.radius, x: 0, y: TeddyTheme.cardShadow.y)
                             }
@@ -97,7 +99,7 @@ struct ResetPINView: View {
                 .padding(TeddyTheme.screenPadding)
                 .padding(.bottom, TeddyTheme.spacingXXL)
             }
-            .background(TeddyTheme.background)
+            .background { TeddyAnimatedBackground().ignoresSafeArea() }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {

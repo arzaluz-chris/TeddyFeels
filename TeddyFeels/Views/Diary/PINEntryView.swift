@@ -93,7 +93,8 @@ struct PINEntryView: View {
                                             .font(.system(size: key == "⌫" ? 18 : 22, weight: .medium, design: .rounded))
                                             .foregroundColor(TeddyTheme.textPrimary)
                                             .frame(width: 68, height: 48)
-                                            .background(TeddyTheme.surface)
+                                            .background(TeddyTheme.glassFill)
+                                            .background(.ultraThinMaterial)
                                             .clipShape(RoundedRectangle(cornerRadius: 12))
                                             .shadow(color: TeddyTheme.cardShadow.color, radius: 2, x: 0, y: 1)
                                     }
@@ -119,7 +120,7 @@ struct PINEntryView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(.horizontal, TeddyTheme.screenPadding)
         }
-        .background(TeddyTheme.background)
+        .background { TeddyAnimatedBackground().ignoresSafeArea() }
         .ignoresSafeArea(edges: .bottom)
         .onAppear {
             // Show error state if there are persisted failed attempts

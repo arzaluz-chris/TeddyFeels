@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B9F550B82F774E83007525C3 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B9F46002CONF1TT200F49CA2 /* ConfettiSwiftUI */; };
+		B9F550B92F774E84007525C3 /* Pow in Frameworks */ = {isa = PBXBuildFile; productRef = B9F46003POW00001200F49CA2 /* Pow */; };
+		B9F550BA2F774E85007525C3 /* Vortex in Frameworks */ = {isa = PBXBuildFile; productRef = B9F46004VORTX0001200F49CA2 /* Vortex */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9F550B82F774E83007525C3 /* ConfettiSwiftUI in Frameworks */,
+				B9F550B92F774E84007525C3 /* Pow in Frameworks */,
+				B9F550BA2F774E85007525C3 /* Vortex in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +75,8 @@
 			name = TeddyFeels;
 			packageProductDependencies = (
 				B9F46002CONF1TT200F49CA2 /* ConfettiSwiftUI */,
+				B9F46003POW00001200F49CA2 /* Pow */,
+				B9F46004VORTX0001200F49CA2 /* Vortex */,
 			);
 			productName = TeddyFeels;
 			productReference = B9F45FE52F77472300F49CA2 /* TeddyFeels.app */;
@@ -102,6 +108,8 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				B9F46001CONF1TT100F49CA2 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
+				B9F46001POW00000100F49CA2 /* XCRemoteSwiftPackageReference "Pow" */,
+				B9F46001VORTX0000100F49CA2 /* XCRemoteSwiftPackageReference "Vortex" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B9F45FE62F77472300F49CA2 /* Products */;
@@ -355,6 +363,22 @@
 				minimumVersion = 1.1.0;
 			};
 		};
+		B9F46001POW00000100F49CA2 /* XCRemoteSwiftPackageReference "Pow" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/EmergeTools/Pow";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		B9F46001VORTX0000100F49CA2 /* XCRemoteSwiftPackageReference "Vortex" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/Vortex";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -362,6 +386,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B9F46001CONF1TT100F49CA2 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */;
 			productName = ConfettiSwiftUI;
+		};
+		B9F46003POW00001200F49CA2 /* Pow */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9F46001POW00000100F49CA2 /* XCRemoteSwiftPackageReference "Pow" */;
+			productName = Pow;
+		};
+		B9F46004VORTX0001200F49CA2 /* Vortex */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9F46001VORTX0000100F49CA2 /* XCRemoteSwiftPackageReference "Vortex" */;
+			productName = Vortex;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -1,5 +1,5 @@
 {
-  "originHash" : "0813d8074328ac339b3ad4d9e895dca3cbd4327633fce793259860c9993a0805",
+  "originHash" : "82b37166b8306a7deca87b3efc971a96b4a9f612ab18d88314ab667f879a4c59",
   "pins" : [
     {
       "identity" : "confettiswiftui",
@@ -8,6 +8,24 @@
       "state" : {
         "revision" : "f45961f97bbae6fff6e2e64546fea0189425ad92",
         "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "pow",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/EmergeTools/Pow",
+      "state" : {
+        "revision" : "a504eb6d144bcf49f4f33029a2795345cb39e6b4",
+        "version" : "1.0.5"
+      }
+    },
+    {
+      "identity" : "vortex",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/twostraws/Vortex",
+      "state" : {
+        "revision" : "9d9d9016ceace579455f01f8e0bd59facae7d252",
+        "version" : "1.0.4"
       }
     }
   ],

@@ -67,7 +67,7 @@ struct InvestigacionExtensaView: View {
             .padding(.top, TeddyTheme.spacingMD)
             .padding(.bottom, 100)
         }
-        .background(TeddyTheme.background)
+        .background { TeddyAnimatedBackground().ignoresSafeArea() }
         .navigationTitle("Sobre Teddy")
     }
 

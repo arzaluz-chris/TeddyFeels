@@ -5,20 +5,30 @@ struct ContentView: View {
     @Environment(BearVoiceService.self) private var bearVoice
     @Environment(RiskDetectionService.self) private var riskService
     @State private var welcome = false
+    @State private var isColdStart = true
     @State private var selectedTab = 0
     @State private var showSOS = false
+
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         ZStack {
             if !welcome {
-                IntroLoadingView(welcome: $welcome)
-                    .onAppear { print("📱 [Nav] Mostrando IntroLoadingView") }
+                IntroLoadingView(welcome: $welcome, isColdStart: isColdStart)
+                    .onAppear { print("📱 [Nav] Mostrando IntroLoadingView (coldStart: \(isColdStart))") }
             } else if !bearVoice.hasSelectedCharacter {
                 CharacterPickerView()
                     .onAppear { print("📱 [Nav] Mostrando CharacterPickerView") }
             } else {
                 mainApp
                     .onAppear { print("📱 [Nav] Mostrando mainApp — personaje: \(bearVoice.selectedCharacter.rawValue)") }
+            }
+        }
+        .onChange(of: scenePhase) { _, newPhase in
+            if newPhase == .active && welcome && bearVoice.hasSelectedCharacter {
+                isColdStart = false
+                welcome = false
+                print("📱 [Nav] App activada — mostrando splash rápida")
             }
         }
     }

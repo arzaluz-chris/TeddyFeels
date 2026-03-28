@@ -18,13 +18,6 @@ struct TeddyCard<Content: View>: View {
                 .padding(padding)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .background(TeddyTheme.surface)
-        .clipShape(RoundedRectangle(cornerRadius: TeddyTheme.cardRadius))
-        .shadow(
-            color: TeddyTheme.cardShadow.color,
-            radius: TeddyTheme.cardShadow.radius,
-            x: 0,
-            y: TeddyTheme.cardShadow.y
-        )
+        .glassCard(tint: accentColor ?? .clear, tintOpacity: accentColor != nil ? 0.08 : 0)
     }
 }

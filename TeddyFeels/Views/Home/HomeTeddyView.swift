@@ -11,7 +11,7 @@ struct HomeTeddyView: View {
     @Environment(\.horizontalSizeClass) private var sizeClass
 
     private var gridColumns: [GridItem] {
-        let count = sizeClass == .regular ? 4 : 3
+        let count = sizeClass == .regular ? 3 : 2
         return Array(repeating: GridItem(.flexible(), spacing: TeddyTheme.spacingSM), count: count)
     }
 
@@ -61,7 +61,7 @@ struct HomeTeddyView: View {
                 .padding(.top, TeddyTheme.spacingMD)
                 .padding(.bottom, 100)
             }
-            .background(TeddyTheme.background)
+            .background { TeddyAnimatedBackground().ignoresSafeArea() }
             .navigationTitle("Teddy Feels")
             .navigationBarTitleDisplayMode(.large)
             .teddyCelebration(counter: $confettiCounter)

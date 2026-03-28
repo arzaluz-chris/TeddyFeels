@@ -14,11 +14,26 @@ struct TeddyButton: View {
         case destructive
     }
 
-    private var backgroundColor: Color {
+    private var backgroundColor: some ShapeStyle {
         switch style {
-        case .primary: return TeddyTheme.primary
-        case .secondary: return TeddyTheme.primary.opacity(0.1)
-        case .destructive: return TeddyTheme.secondary
+        case .primary:
+            return AnyShapeStyle(
+                LinearGradient(
+                    colors: [TeddyTheme.primary, TeddyTheme.primaryLight],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+        case .secondary:
+            return AnyShapeStyle(TeddyTheme.primary.opacity(0.15))
+        case .destructive:
+            return AnyShapeStyle(
+                LinearGradient(
+                    colors: [TeddyTheme.secondary, TeddyTheme.secondary.opacity(0.8)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
         }
     }
 
@@ -50,6 +65,10 @@ struct TeddyButton: View {
             .background(backgroundColor)
             .foregroundColor(foregroundColor)
             .clipShape(RoundedRectangle(cornerRadius: TeddyTheme.buttonRadius))
+            .shadow(
+                color: style == .primary ? TeddyTheme.primary.opacity(0.3) : .clear,
+                radius: 8, x: 0, y: 4
+            )
         }
         .scaleEffect(isPressed ? 0.95 : 1.0)
         .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isPressed)

@@ -12,7 +12,7 @@ struct CharacterPickerView: View {
 
     var body: some View {
         ZStack {
-            TeddyTheme.background.ignoresSafeArea()
+            TeddyAnimatedBackground()
 
             VStack(spacing: TeddyTheme.spacingXL) {
                 Spacer()

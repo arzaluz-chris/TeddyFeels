@@ -162,7 +162,7 @@ struct IAAnalisisDashboard: View {
                 .padding(.top, TeddyTheme.spacingMD)
                 .padding(.bottom, 100)
             }
-            .background(TeddyTheme.background)
+            .background { TeddyAnimatedBackground().ignoresSafeArea() }
             .navigationTitle("Progreso")
             .navigationBarTitleDisplayMode(.large)
         }
@@ -186,7 +186,8 @@ struct IAAnalisisDashboard: View {
         }
         .frame(maxWidth: .infinity)
         .padding(TeddyTheme.spacingSM)
-        .background(TeddyTheme.surface)
+        .background(TeddyTheme.glassFill)
+            .background(.ultraThinMaterial)
         .clipShape(RoundedRectangle(cornerRadius: TeddyTheme.cardRadius))
         .shadow(color: TeddyTheme.cardShadow.color, radius: TeddyTheme.cardShadow.radius, x: 0, y: TeddyTheme.cardShadow.y)
     }
