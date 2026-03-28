@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		B9F550B82F774E83007525C3 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B9F46002CONF1TT200F49CA2 /* ConfettiSwiftUI */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		B9F45FE52F77472300F49CA2 /* TeddyFeels.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeddyFeels.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9F550B82F774E83007525C3 /* ConfettiSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = TeddyFeels;
 			packageProductDependencies = (
+				B9F46002CONF1TT200F49CA2 /* ConfettiSwiftUI */,
 			);
 			productName = TeddyFeels;
 			productReference = B9F45FE52F77472300F49CA2 /* TeddyFeels.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = B9F45FDC2F77472300F49CA2;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				B9F46001CONF1TT100F49CA2 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B9F45FE62F77472300F49CA2 /* Products */;
 			projectDirPath = "";
@@ -256,6 +265,8 @@
 				DEVELOPMENT_TEAM = 5Z75CJC22Q;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Teddy necesita tu micrófono para grabar notas de voz en tu diario secreto.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Teddy usa reconocimiento de voz para transcribir tus notas de voz a texto.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -288,6 +299,8 @@
 				DEVELOPMENT_TEAM = 5Z75CJC22Q;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Teddy necesita tu micrófono para grabar notas de voz en tu diario secreto.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Teddy usa reconocimiento de voz para transcribir tus notas de voz a texto.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -332,6 +345,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B9F46001CONF1TT100F49CA2 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B9F46002CONF1TT200F49CA2 /* ConfettiSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9F46001CONF1TT100F49CA2 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */;
+			productName = ConfettiSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B9F45FDD2F77472300F49CA2 /* Project object */;
 }
