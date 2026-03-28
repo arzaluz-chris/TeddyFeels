@@ -119,9 +119,8 @@ struct PINEntryView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(.horizontal, TeddyTheme.screenPadding)
+            .iPadReadableWidth()
         }
-        .background { TeddyAnimatedBackground().ignoresSafeArea() }
-        .ignoresSafeArea(edges: .bottom)
         .onAppear {
             // Show error state if there are persisted failed attempts
             if attempts > 0 {

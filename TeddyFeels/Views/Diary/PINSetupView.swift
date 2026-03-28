@@ -33,16 +33,17 @@ struct PINSetupView: View {
                         rescueQuestionsStep
                     }
                     .padding(TeddyTheme.screenPadding)
+                    .iPadReadableWidth()
                     .padding(.bottom, TeddyTheme.spacingXXL)
                 }
             } else {
-                VStack(spacing: TeddyTheme.spacingLG) {
+                VStack(spacing: TeddyTheme.spacingMD) {
                     Spacer()
 
                     Image(bearImage)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 140, height: 140)
+                        .frame(width: 120, height: 120)
 
                     if step == .createPIN {
                         createPINStep
@@ -53,9 +54,9 @@ struct PINSetupView: View {
                     Spacer()
                 }
                 .padding(TeddyTheme.screenPadding)
+                .iPadReadableWidth()
             }
         }
-        .background { TeddyAnimatedBackground().ignoresSafeArea() }
     }
 
     // MARK: - Step 1: Create PIN

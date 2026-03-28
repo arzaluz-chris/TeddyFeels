@@ -40,7 +40,7 @@ struct PrivacyPolicyView: View {
 
                     section(title: "Cumplimiento", content: "TeddyFeels cumple con la Ley de Protección de la Privacidad Infantil en Línea (COPPA), el Reglamento General de Protección de Datos (GDPR) y las directrices de la categoría Kids del App Store de Apple.")
 
-                    section(title: "Contacto", content: "Si tienes preguntas sobre esta política de privacidad, contacta a: teddyfeels@proyectoswalden.com")
+                    section(title: "Contacto", content: "Si tienes preguntas sobre esta política de privacidad, contacta a: eduardogarcia@waldendos.edu.mx")
 
                     Text("Última actualización: Marzo 2026")
                         .font(TeddyTheme.caption())
