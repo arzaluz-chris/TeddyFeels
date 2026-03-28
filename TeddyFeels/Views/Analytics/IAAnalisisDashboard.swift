@@ -163,10 +163,10 @@ struct IAAnalisisDashboard: View {
                 .padding(.top, TeddyTheme.spacingMD)
                 .padding(.bottom, 100)
             }
-            .background { TeddyAnimatedBackground().ignoresSafeArea() }
             .navigationTitle("Progreso")
             .navigationBarTitleDisplayMode(.large)
         }
+        .background { TeddyAnimatedBackground().ignoresSafeArea() }
         .onAppear {
             bearVoice.play(for: "Progreso")
             analyticsVM.refresh()

@@ -63,7 +63,6 @@ struct HomeTeddyView: View {
                 .padding(.top, TeddyTheme.spacingMD)
                 .padding(.bottom, 100)
             }
-            .background { TeddyAnimatedBackground().ignoresSafeArea() }
             .navigationTitle("Teddy Feels")
             .navigationBarTitleDisplayMode(.large)
             .teddyCelebration(counter: $confettiCounter)
@@ -78,6 +77,7 @@ struct HomeTeddyView: View {
                 }
             }
         }
+        .background { TeddyAnimatedBackground().ignoresSafeArea() }
         .sheet(item: $selectedEmocion) { emocion in
             DetalleSheet(emocion: emocion)
         }

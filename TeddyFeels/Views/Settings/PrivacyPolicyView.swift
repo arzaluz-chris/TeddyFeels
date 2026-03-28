@@ -52,7 +52,6 @@ struct PrivacyPolicyView: View {
                 .padding(.top, TeddyTheme.spacingMD)
                 .padding(.bottom, 100)
             }
-            .background { TeddyAnimatedBackground().ignoresSafeArea() }
             .navigationTitle("Política de Privacidad")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
@@ -63,6 +62,7 @@ struct PrivacyPolicyView: View {
                 }
             }
         }
+        .background { TeddyAnimatedBackground().ignoresSafeArea() }
     }
 
     private func section(title: String, content: String) -> some View {

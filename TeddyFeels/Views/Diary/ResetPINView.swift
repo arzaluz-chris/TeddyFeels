@@ -99,7 +99,6 @@ struct ResetPINView: View {
                 .padding(TeddyTheme.screenPadding)
                 .padding(.bottom, TeddyTheme.spacingXXL)
             }
-            .background { TeddyAnimatedBackground().ignoresSafeArea() }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -108,5 +107,6 @@ struct ResetPINView: View {
                 }
             }
         }
+        .background { TeddyAnimatedBackground().ignoresSafeArea() }
     }
 }

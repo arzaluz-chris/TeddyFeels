@@ -57,10 +57,10 @@ struct ExplorarView: View {
                 .padding(.top, TeddyTheme.spacingMD)
                 .padding(.bottom, 100)
             }
-            .background { TeddyAnimatedBackground().ignoresSafeArea() }
             .navigationTitle("Explorar")
             .navigationBarTitleDisplayMode(.large)
         }
+        .background { TeddyAnimatedBackground().ignoresSafeArea() }
     }
 
     private func explorarCard(icon: String, iconColor: Color, title: String, subtitle: String, bgColor: Color) -> some View {

@@ -33,9 +33,9 @@ struct DiarioTabView: View {
                     }
                 }
             }
-            .background { TeddyAnimatedBackground().ignoresSafeArea() }
             .navigationTitle("Diario")
             .navigationBarTitleDisplayMode(.large)
         }
+        .background { TeddyAnimatedBackground().ignoresSafeArea() }
     }
 }

@@ -273,6 +273,7 @@
 				DEVELOPMENT_TEAM = 5Z75CJC22Q;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Teddy necesita tu micrófono para grabar notas de voz en tu diario secreto.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Teddy usa reconocimiento de voz para transcribir tus notas de voz a texto.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -307,6 +308,7 @@
 				DEVELOPMENT_TEAM = 5Z75CJC22Q;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Teddy necesita tu micrófono para grabar notas de voz en tu diario secreto.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Teddy usa reconocimiento de voz para transcribir tus notas de voz a texto.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

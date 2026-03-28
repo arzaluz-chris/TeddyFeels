@@ -65,7 +65,6 @@ struct ParentalGateView: View {
                 Spacer()
             }
             .padding(TeddyTheme.screenPadding)
-            .background { TeddyAnimatedBackground().ignoresSafeArea() }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancelar") { dismiss() }
@@ -73,6 +72,7 @@ struct ParentalGateView: View {
                 }
             }
         }
+        .background { TeddyAnimatedBackground().ignoresSafeArea() }
     }
 
     // MARK: - Challenge Generator

@@ -62,7 +62,6 @@ struct DetalleSheet: View {
                 }
                 .padding(.bottom, TeddyTheme.spacingXXL)
             }
-            .background { TeddyAnimatedBackground().ignoresSafeArea() }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
@@ -78,5 +77,6 @@ struct DetalleSheet: View {
             }
             .teddyCelebration(counter: $confettiCounter, colors: [emocion.color, .white, emocion.color.opacity(0.5)])
         }
+        .background { TeddyAnimatedBackground().ignoresSafeArea() }
     }
 }
