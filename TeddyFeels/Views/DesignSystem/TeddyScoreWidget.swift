@@ -11,7 +11,7 @@ struct TeddyScoreWidget: View {
             HStack(spacing: TeddyTheme.spacingMD) {
                 ZStack {
                     Circle()
-                        .stroke(Color.white.opacity(0.3), lineWidth: 6)
+                        .stroke(TeddyTheme.border, lineWidth: 6)
 
                     Circle()
                         .trim(from: 0, to: score / 100)

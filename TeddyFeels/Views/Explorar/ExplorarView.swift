@@ -11,6 +11,7 @@ struct ExplorarView: View {
                         message: "Descubre tips, juegos y todo sobre cómo funcionan tus emociones"
                     )
                     .padding(.horizontal, TeddyTheme.screenPadding)
+                .iPadReadableWidth()
 
                     // Section cards
                     VStack(spacing: TeddyTheme.spacingMD) {
@@ -51,6 +52,7 @@ struct ExplorarView: View {
                         }
                     }
                     .padding(.horizontal, TeddyTheme.screenPadding)
+                .iPadReadableWidth()
                 }
                 .padding(.top, TeddyTheme.spacingMD)
                 .padding(.bottom, 100)

@@ -150,6 +150,7 @@ struct DiarioEscribirView: View {
                 }
             }
             .padding(.horizontal, TeddyTheme.screenPadding)
+                .iPadReadableWidth()
             .padding(.top, TeddyTheme.spacingMD)
             .padding(.bottom, 100)
         }

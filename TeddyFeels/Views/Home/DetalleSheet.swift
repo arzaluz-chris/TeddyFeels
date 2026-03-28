@@ -58,6 +58,7 @@ struct DetalleSheet: View {
                         }
                     }
                     .padding(.horizontal, TeddyTheme.screenPadding)
+                .iPadReadableWidth()
                 }
                 .padding(.bottom, TeddyTheme.spacingXXL)
             }

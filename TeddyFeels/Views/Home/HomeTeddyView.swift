@@ -6,6 +6,7 @@ struct HomeTeddyView: View {
     @State private var emotionVM = EmotionViewModel()
     @State private var selectedEmocion: Emocion?
     @State private var showSOS = false
+    @State private var showPrivacy = false
     @State private var confettiCounter = 0
 
     @Environment(\.horizontalSizeClass) private var sizeClass
@@ -58,6 +59,7 @@ struct HomeTeddyView: View {
                     }
                 }
                 .padding(.horizontal, TeddyTheme.screenPadding)
+                .iPadReadableWidth()
                 .padding(.top, TeddyTheme.spacingMD)
                 .padding(.bottom, 100)
             }
@@ -65,9 +67,22 @@ struct HomeTeddyView: View {
             .navigationTitle("Teddy Feels")
             .navigationBarTitleDisplayMode(.large)
             .teddyCelebration(counter: $confettiCounter)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showPrivacy = true
+                    } label: {
+                        Image(systemName: "info.circle")
+                            .foregroundColor(TeddyTheme.primary)
+                    }
+                }
+            }
         }
         .sheet(item: $selectedEmocion) { emocion in
             DetalleSheet(emocion: emocion)
+        }
+        .sheet(isPresented: $showPrivacy) {
+            PrivacyPolicyView()
         }
         .onAppear {
             print("📱 [Home] Vista apareció — personaje: \(bearVoice.selectedCharacter.rawValue)")
