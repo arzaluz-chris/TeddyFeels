@@ -3,6 +3,7 @@ import SwiftUI
 struct TeddyEmotionCard: View {
     let emocion: Emocion
     let isSelected: Bool
+    let character: BearVoiceService.Character
     let action: () -> Void
 
     @State private var isPressed = false
@@ -14,12 +15,12 @@ struct TeddyEmotionCard: View {
             action()
         } label: {
             VStack(spacing: TeddyTheme.spacingSM) {
-                Image(emocion.emotionImageName)
+                Image(emocion.imageName(for: character))
                     .resizable()
                     .scaledToFit()
                     .frame(width: 80, height: 80)
 
-                Text(emocion.rawValue)
+                Text(emocion.displayName(for: character))
                     .font(TeddyTheme.cardTitle())
                     .foregroundColor(TeddyTheme.textPrimary)
             }

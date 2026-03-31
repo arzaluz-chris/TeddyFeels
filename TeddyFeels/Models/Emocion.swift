@@ -97,6 +97,50 @@ enum Emocion: String, CaseIterable, Codable, Identifiable {
         }
     }
 
+    func displayName(for character: BearVoiceService.Character) -> String {
+        guard character == .dani else { return rawValue }
+        switch self {
+        case .feliz: return "Feliz"
+        case .triste: return "Triste"
+        case .enojado: return "Enojada"
+        case .ansioso: return "Ansiosa"
+        case .estresado: return "Estresada"
+        case .confundido: return "Confundida"
+        case .esperanzado: return "Esperanzada"
+        case .agradecido: return "Agradecida"
+        case .orgulloso: return "Orgullosa"
+        }
+    }
+
+    func imageName(for character: BearVoiceService.Character) -> String {
+        switch character {
+        case .dan:
+            switch self {
+            case .feliz: return "osito_feliz"
+            case .triste: return "osito_triste"
+            case .enojado: return "osito_enojado"
+            case .ansioso: return "osito_ansioso"
+            case .estresado: return "osito_estresado"
+            case .confundido: return "osito_confundido"
+            case .esperanzado: return "osito_esperanzado"
+            case .agradecido: return "osito_agradecido"
+            case .orgulloso: return "osito_orgulloso"
+            }
+        case .dani:
+            switch self {
+            case .feliz: return "osita_feliz"
+            case .triste: return "osita_triste"
+            case .enojado: return "osita_enojada"
+            case .ansioso: return "osita_ansiosa"
+            case .estresado: return "osita_estresada"
+            case .confundido: return "osita_confundida"
+            case .esperanzado: return "osita_esperanzada"
+            case .agradecido: return "osita_agradecida"
+            case .orgulloso: return "osita_orgullosa"
+            }
+        }
+    }
+
     var accionesCriticas: [String] {
         switch self {
         case .feliz:

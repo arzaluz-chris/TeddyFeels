@@ -3,6 +3,7 @@ import ConfettiSwiftUI
 
 struct DetalleSheet: View {
     let emocion: Emocion
+    @Environment(BearVoiceService.self) private var bearVoice
     @Environment(\.dismiss) var dismiss
     @State private var confettiCounter = 0
 
@@ -12,12 +13,12 @@ struct DetalleSheet: View {
                 VStack(spacing: TeddyTheme.spacingLG) {
                     // Header with bear
                     VStack(spacing: TeddyTheme.spacingMD) {
-                        Image(emocion.bearImageName)
+                        Image(emocion.imageName(for: bearVoice.selectedCharacter))
                             .resizable()
                             .scaledToFit()
                             .frame(width: 160, height: 160)
 
-                        Text("Cuando me siento \(emocion.rawValue.lowercased())")
+                        Text("Cuando me siento \(emocion.displayName(for: bearVoice.selectedCharacter).lowercased())")
                             .font(TeddyTheme.sectionTitle())
                             .foregroundColor(TeddyTheme.textPrimary)
                             .multilineTextAlignment(.center)

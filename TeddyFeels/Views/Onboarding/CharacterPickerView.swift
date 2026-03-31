@@ -37,8 +37,8 @@ struct CharacterPickerView: View {
                 .opacity(showContent ? 1.0 : 0)
 
                 HStack(spacing: TeddyTheme.spacingLG) {
-                    characterCard(character: .dan, imageName: "teddy_boy", label: "Dan")
-                    characterCard(character: .dani, imageName: "teddy_girl", label: "Dani")
+                    characterCard(character: .dan, imageName: "osito_feliz", label: "Dan")
+                    characterCard(character: .dani, imageName: "osita_feliz", label: "Dani")
                 }
                 .opacity(showContent ? 1.0 : 0)
 

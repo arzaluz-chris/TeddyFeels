@@ -31,7 +31,7 @@ struct HomeTeddyView: View {
                 VStack(spacing: TeddyTheme.spacingLG) {
                     // Bear greeting banner - bear changes based on current emotion
                     TeddyBearBanner(
-                        imageName: emotionVM.emocionActual.bearImageName,
+                        imageName: emotionVM.emocionActual.imageName(for: bearVoice.selectedCharacter),
                         message: greeting,
                         onTap: { bearVoice.replay(for: "Inicio") }
                     )
@@ -47,7 +47,8 @@ struct HomeTeddyView: View {
                             ForEach(Emocion.allCases) { emocion in
                                 TeddyEmotionCard(
                                     emocion: emocion,
-                                    isSelected: emotionVM.emocionActual == emocion
+                                    isSelected: emotionVM.emocionActual == emocion,
+                                    character: bearVoice.selectedCharacter
                                 ) {
                                     print("📱 [Home] Emoción seleccionada: \(emocion.rawValue)")
                                     emotionVM.selectEmotion(emocion)

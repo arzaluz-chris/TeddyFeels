@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct SOSIAView: View {
+    @Environment(BearVoiceService.self) private var bearVoice
     @Environment(\.dismiss) var dismiss
     @State private var emoSel: Emocion?
 
@@ -22,11 +23,11 @@ struct SOSIAView: View {
                                 ForEach(Emocion.allCases) { e in
                                     Button { withAnimation { emoSel = e } } label: {
                                         VStack {
-                                            Image(e.bearImageName)
+                                            Image(e.imageName(for: bearVoice.selectedCharacter))
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 40, height: 40)
-                                            Text(e.rawValue).font(.caption).bold()
+                                            Text(e.displayName(for: bearVoice.selectedCharacter)).font(.caption).bold()
                                         }
                                         .padding()
                                         .background(emoSel == e ? Color.white : Color.white.opacity(0.3))
