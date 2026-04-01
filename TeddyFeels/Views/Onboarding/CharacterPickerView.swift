@@ -15,66 +15,70 @@ struct CharacterPickerView: View {
             TeddyAnimatedBackground()
                 .ignoresSafeArea()
 
-            VStack(spacing: TeddyTheme.spacingXL) {
-                Spacer()
+            ScrollView {
+                VStack(spacing: TeddyTheme.spacingLG) {
+                    Spacer(minLength: TeddyTheme.spacingXL)
 
-                Image("oso_Bienvenida")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 220, height: 220)
-                    .scaleEffect(showContent ? 1.0 : 0.5)
+                    Image("oso_Bienvenida")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 300, height: 300)
+                        .scaleEffect(showContent ? 1.0 : 0.5)
+                        .opacity(showContent ? 1.0 : 0)
+
+                    VStack(spacing: TeddyTheme.spacingSM) {
+                        Text("¡Hola! Soy Teddy")
+                            .font(TeddyTheme.screenTitle())
+                            .foregroundColor(TeddyTheme.textPrimary)
+
+                        Text("¿Con qué voz quieres que te hable?")
+                            .font(TeddyTheme.body())
+                            .foregroundColor(TeddyTheme.textSecondary)
+                    }
                     .opacity(showContent ? 1.0 : 0)
 
-                VStack(spacing: TeddyTheme.spacingSM) {
-                    Text("¡Hola! Soy Teddy")
-                        .font(TeddyTheme.screenTitle())
-                        .foregroundColor(TeddyTheme.textPrimary)
-
-                    Text("¿Con qué voz quieres que te hable?")
-                        .font(TeddyTheme.body())
-                        .foregroundColor(TeddyTheme.textSecondary)
-                }
-                .opacity(showContent ? 1.0 : 0)
-
-                HStack(spacing: TeddyTheme.spacingLG) {
-                    characterCard(character: .dan, imageName: "osito_feliz", label: "Dan")
-                    characterCard(character: .dani, imageName: "osita_feliz", label: "Dani")
-                }
-                .opacity(showContent ? 1.0 : 0)
-
-                // Preview button
-                Button {
-                    playPreview(for: selectedCharacter)
-                } label: {
-                    HStack(spacing: TeddyTheme.spacingSM) {
-                        Image(systemName: isPreviewPlaying ? "speaker.wave.2.fill" : "play.circle.fill")
-                            .font(.system(size: 20))
-                        Text(isPreviewPlaying ? "Escuchando..." : "Escuchar voz")
-                            .font(TeddyTheme.bodyBold())
+                    HStack(spacing: TeddyTheme.spacingLG) {
+                        characterCard(character: .dan, imageName: "osito_feliz", label: "Dan")
+                        characterCard(character: .dani, imageName: "osita_feliz", label: "Dani")
                     }
-                    .foregroundColor(TeddyTheme.primary)
-                    .padding(.vertical, TeddyTheme.spacingSM)
-                    .padding(.horizontal, TeddyTheme.spacingLG)
-                    .background(TeddyTheme.primary.opacity(0.1))
-                    .clipShape(Capsule())
-                }
-                .disabled(isPreviewPlaying)
-                .opacity(showContent ? 1.0 : 0)
+                    .opacity(showContent ? 1.0 : 0)
 
-                TeddyButton(title: "¡Empezar!", icon: "play.fill") {
-                    stopPreview()
-                    confettiCounter += 1
-                    bearVoice.selectedCharacter = selectedCharacter
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                        bearVoice.markCharacterSelected()
+                    // Preview button
+                    Button {
+                        playPreview(for: selectedCharacter)
+                    } label: {
+                        HStack(spacing: TeddyTheme.spacingSM) {
+                            Image(systemName: isPreviewPlaying ? "speaker.wave.2.fill" : "play.circle.fill")
+                                .font(.system(size: 20))
+                            Text(isPreviewPlaying ? "Escuchando..." : "Escuchar voz")
+                                .font(TeddyTheme.bodyBold())
+                        }
+                        .foregroundColor(TeddyTheme.primary)
+                        .padding(.vertical, TeddyTheme.spacingSM)
+                        .padding(.horizontal, TeddyTheme.spacingLG)
+                        .background(TeddyTheme.primary.opacity(0.1))
+                        .clipShape(Capsule())
                     }
-                }
-                .padding(.horizontal, TeddyTheme.spacingXL)
-                .opacity(showContent ? 1.0 : 0)
+                    .disabled(isPreviewPlaying)
+                    .opacity(showContent ? 1.0 : 0)
 
-                Spacer()
+                    TeddyButton(title: "¡Empezar!", icon: "play.fill") {
+                        stopPreview()
+                        confettiCounter += 1
+                        bearVoice.selectedCharacter = selectedCharacter
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                            bearVoice.markCharacterSelected()
+                        }
+                    }
+                    .padding(.horizontal, TeddyTheme.spacingXL)
+                    .opacity(showContent ? 1.0 : 0)
+
+                    Spacer(minLength: TeddyTheme.spacingLG)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(TeddyTheme.screenPadding)
             }
-            .padding(TeddyTheme.screenPadding)
+            .scrollIndicators(.hidden)
             .teddyCelebration(counter: $confettiCounter)
         }
         .onAppear {
@@ -100,12 +104,12 @@ struct CharacterPickerView: View {
                 Image(imageName)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 70, height: 70)
+                    .frame(width: 110, height: 110)
                 Text(label)
-                    .font(TeddyTheme.sectionTitle())
+                    .font(TeddyTheme.screenTitle())
                     .foregroundColor(TeddyTheme.textPrimary)
             }
-            .frame(width: 130, height: 130)
+            .frame(width: 180, height: 180)
             .background(selectedCharacter == character ? TeddyTheme.primary.opacity(0.1) : TeddyTheme.surface)
             .clipShape(RoundedRectangle(cornerRadius: TeddyTheme.cardRadius))
             .overlay(
