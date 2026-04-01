@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		B9F550B82F774E83007525C3 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B9F46002CONF1TT200F49CA2 /* ConfettiSwiftUI */; };
 		B9F550BA2F774E85007525C3 /* Vortex in Frameworks */ = {isa = PBXBuildFile; productRef = B9F46004VORTX0001200F49CA2 /* Vortex */; };
+		B9F550BC2F774E87007525C3 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = B9F46006LOTT10001200F49CA2 /* Lottie */; };
+		B9F550BE2F774E89007525C3 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = B9F46008SHIM10001200F49CA2 /* Shimmer */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 			files = (
 				B9F550B82F774E83007525C3 /* ConfettiSwiftUI in Frameworks */,
 				B9F550BA2F774E85007525C3 /* Vortex in Frameworks */,
+				B9F550BC2F774E87007525C3 /* Lottie in Frameworks */,
+				B9F550BE2F774E89007525C3 /* Shimmer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +78,8 @@
 			packageProductDependencies = (
 				B9F46002CONF1TT200F49CA2 /* ConfettiSwiftUI */,
 				B9F46004VORTX0001200F49CA2 /* Vortex */,
+				B9F46006LOTT10001200F49CA2 /* Lottie */,
+				B9F46008SHIM10001200F49CA2 /* Shimmer */,
 			);
 			productName = TeddyFeels;
 			productReference = B9F45FE52F77472300F49CA2 /* TeddyFeels.app */;
@@ -106,6 +112,8 @@
 			packageReferences = (
 				B9F46001CONF1TT100F49CA2 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 				B9F46001VORTX0000100F49CA2 /* XCRemoteSwiftPackageReference "Vortex" */,
+				B9F46005LOTT10000100F49CA2 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				B9F46007SHIM10000100F49CA2 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B9F45FE62F77472300F49CA2 /* Products */;
@@ -262,10 +270,12 @@
 		B9F45FF12F77472500F49CA2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconDan AppIconDani";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.2;
+				CURRENT_PROJECT_VERSION = 1.3;
 				DEVELOPMENT_TEAM = 5Z75CJC22Q;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -297,10 +307,12 @@
 		B9F45FF22F77472500F49CA2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconDan AppIconDani";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.2;
+				CURRENT_PROJECT_VERSION = 1.3;
 				DEVELOPMENT_TEAM = 5Z75CJC22Q;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -369,6 +381,22 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		B9F46005LOTT10000100F49CA2 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.0;
+			};
+		};
+		B9F46007SHIM10000100F49CA2 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/markiv/SwiftUI-Shimmer";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -381,6 +409,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B9F46001VORTX0000100F49CA2 /* XCRemoteSwiftPackageReference "Vortex" */;
 			productName = Vortex;
+		};
+		B9F46006LOTT10001200F49CA2 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9F46005LOTT10000100F49CA2 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+		B9F46008SHIM10001200F49CA2 /* Shimmer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9F46007SHIM10000100F49CA2 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */;
+			productName = Shimmer;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

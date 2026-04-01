@@ -11,55 +11,49 @@ struct DetalleSheet: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: TeddyTheme.spacingLG) {
-                    // Header with bear
+                    // Header with solid emotion color
                     VStack(spacing: TeddyTheme.spacingMD) {
-                        Image(emocion.imageName(for: bearVoice.selectedCharacter))
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 160, height: 160)
+                        TeddyAnimatedBear(
+                            imageName: emocion.imageName(for: bearVoice.selectedCharacter),
+                            size: 180,
+                            style: .breathing
+                        )
 
                         Text("Cuando me siento \(emocion.displayName(for: bearVoice.selectedCharacter).lowercased())")
                             .font(TeddyTheme.sectionTitle())
                             .foregroundColor(TeddyTheme.textPrimary)
                             .multilineTextAlignment(.center)
                     }
-                    .padding(.top, TeddyTheme.spacingMD)
-
-                    // Recommendations
-                    VStack(spacing: TeddyTheme.spacingSM) {
-                        ForEach(emocion.recomendaciones) { rec in
-                            HStack(spacing: TeddyTheme.spacingMD) {
-                                ZStack {
-                                    Circle()
-                                        .fill(emocion.backgroundColor)
-                                        .frame(width: 44, height: 44)
-
-                                    Image(systemName: rec.icono)
-                                        .font(.system(size: 18, weight: .semibold))
-                                        .foregroundColor(emocion.color)
-                                }
-
-                                VStack(alignment: .leading, spacing: TeddyTheme.spacingXS) {
-                                    Text(rec.texto)
-                                        .font(TeddyTheme.cardTitle())
-                                        .foregroundColor(TeddyTheme.textPrimary)
-
-                                    Text(rec.comoHacerlo)
-                                        .font(TeddyTheme.body())
-                                        .foregroundColor(TeddyTheme.textSecondary)
-                                }
-
-                                Spacer()
-                            }
-                            .padding(TeddyTheme.cardPadding)
-                            .background(TeddyTheme.glassFill)
-                            .background(.ultraThinMaterial)
-                            .clipShape(RoundedRectangle(cornerRadius: TeddyTheme.cardRadius))
-                            .shadow(color: TeddyTheme.cardShadow.color, radius: TeddyTheme.cardShadow.radius, x: 0, y: TeddyTheme.cardShadow.y)
-                        }
-                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, TeddyTheme.spacingLG)
                     .padding(.horizontal, TeddyTheme.screenPadding)
-                .iPadReadableWidth()
+                    .background(
+                        LinearGradient(
+                            colors: [emocion.backgroundColor.opacity(0.6), emocion.backgroundColor],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+
+                    // Recommendations carousel
+                    VStack(alignment: .leading, spacing: TeddyTheme.spacingSM) {
+                        Text("¿Qué puedes hacer?")
+                            .font(TeddyTheme.sectionTitle())
+                            .foregroundColor(TeddyTheme.textPrimary)
+                            .padding(.horizontal, TeddyTheme.screenPadding)
+
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: TeddyTheme.spacingMD) {
+                                ForEach(emocion.recomendaciones) { rec in
+                                    recommendationCard(rec)
+                                }
+                            }
+                            .padding(.horizontal, TeddyTheme.screenPadding)
+                            .scrollTargetLayout()
+                        }
+                        .scrollTargetBehavior(.viewAligned)
+                    }
+                    .iPadReadableWidth()
                 }
                 .padding(.bottom, TeddyTheme.spacingXXL)
             }
@@ -78,6 +72,48 @@ struct DetalleSheet: View {
             }
             .teddyCelebration(counter: $confettiCounter, colors: [emocion.color, .white, emocion.color.opacity(0.5)])
         }
-        .background { TeddyAnimatedBackground().ignoresSafeArea() }
+        .background {
+            TeddyAnimatedBackground(emotion: emocion)
+                .ignoresSafeArea()
+        }
+    }
+
+    // MARK: - Recommendation Card
+
+    private func recommendationCard(_ rec: Accion) -> some View {
+        VStack(alignment: .leading, spacing: TeddyTheme.spacingSM) {
+            // Color strip top
+            RoundedRectangle(cornerRadius: 2)
+                .fill(emocion.color)
+                .frame(height: 4)
+
+            HStack(spacing: TeddyTheme.spacingSM) {
+                ZStack {
+                    Circle()
+                        .fill(emocion.backgroundColor)
+                        .frame(width: 40, height: 40)
+
+                    Image(systemName: rec.icono)
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(emocion.color)
+                }
+
+                Text(rec.texto)
+                    .font(TeddyTheme.cardTitle())
+                    .foregroundColor(TeddyTheme.textPrimary)
+                    .lineLimit(2)
+            }
+
+            Text(rec.comoHacerlo)
+                .font(TeddyTheme.body())
+                .foregroundColor(TeddyTheme.textSecondary)
+                .lineLimit(4)
+
+            Spacer(minLength: 0)
+        }
+        .padding(TeddyTheme.cardPadding)
+        .frame(width: 280)
+        .frame(minHeight: 160)
+        .elevatedCard()
     }
 }

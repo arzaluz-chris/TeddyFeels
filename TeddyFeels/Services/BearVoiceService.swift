@@ -18,6 +18,7 @@ final class BearVoiceService {
             print("🔊 [BearVoice] Personaje cambiado a: \(newValue.rawValue)")
             UserDefaults.standard.set(newValue.rawValue, forKey: "bearVoiceCharacter")
             stop()
+            if hasSelectedCharacter { updateAppIcon() }
         }
     }
 
@@ -33,6 +34,21 @@ final class BearVoiceService {
         UserDefaults.standard.set(true, forKey: "hasSelectedBearCharacter")
         hasSelectedCharacter = true
         print("🔊 [BearVoice] Personaje marcado como seleccionado: \(selectedCharacter.rawValue)")
+        updateAppIcon()
+    }
+
+    func updateAppIcon() {
+        let iconName = selectedCharacter == .dan ? "AppIconDan" : "AppIconDani"
+        let current = UIApplication.shared.alternateIconName
+        print("🔊 [BearVoice] 🎨 updateAppIcon — current: \(current ?? "nil"), target: \(iconName)")
+        if current == iconName { return }
+        UIApplication.shared.setAlternateIconName(iconName) { error in
+            if let error {
+                print("🔊 [BearVoice] ❌ Error cambiando ícono: \(error.localizedDescription)")
+            } else {
+                print("🔊 [BearVoice] ✅ Ícono cambiado a: \(iconName)")
+            }
+        }
     }
 
     // MARK: - Playback

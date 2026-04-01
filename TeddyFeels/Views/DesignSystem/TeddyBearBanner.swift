@@ -3,28 +3,26 @@ import SwiftUI
 struct TeddyBearBanner: View {
     let imageName: String
     let message: String
-    var imageSize: CGFloat = 120
+    var imageSize: CGFloat = 140
     var onTap: (() -> Void)? = nil
 
     var body: some View {
-        HStack(spacing: TeddyTheme.spacingMD) {
-            Image(imageName)
-                .resizable()
-                .scaledToFit()
-                .frame(width: imageSize, height: imageSize)
-                .onTapGesture { onTap?() }
+        VStack(spacing: TeddyTheme.spacingSM) {
+            // Bear centered with floating animation
+            TeddyAnimatedBear(
+                imageName: imageName,
+                size: imageSize,
+                style: .idle
+            )
+            .onTapGesture { onTap?() }
 
-            VStack(alignment: .leading, spacing: TeddyTheme.spacingXS) {
-                Text(message)
-                    .font(TeddyTheme.body())
-                    .foregroundColor(TeddyTheme.textPrimary)
-                    .multilineTextAlignment(.leading)
-            }
-            .padding(.vertical, TeddyTheme.spacingSM)
-
-            Spacer(minLength: 0)
+            // Greeting text centered
+            Text(message)
+                .font(TeddyTheme.bodyBold())
+                .foregroundColor(TeddyTheme.textPrimary)
+                .multilineTextAlignment(.center)
         }
-        .padding(TeddyTheme.cardPadding)
-        .glassCard(tint: TeddyTheme.primary, tintOpacity: 0.05)
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, TeddyTheme.spacingMD)
     }
 }

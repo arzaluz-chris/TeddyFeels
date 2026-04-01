@@ -41,17 +41,21 @@ struct PINEntryView: View {
                         .foregroundColor(TeddyTheme.textSecondary)
                         .multilineTextAlignment(.center)
 
-                    // PIN Dots
+                    // PIN Dots — pop animation per digit
                     HStack(spacing: 20) {
                         ForEach(0..<4, id: \.self) { i in
                             Circle()
                                 .fill(i < pin.count ? TeddyTheme.primary : TeddyTheme.border)
                                 .frame(width: 18, height: 18)
-                                .scaleEffect(i < pin.count ? 1.2 : 1.0)
-                                .animation(.spring(response: 0.2), value: pin.count)
+                                .scaleEffect(i < pin.count ? 1.0 : 0.6)
+                                .animation(
+                                    .spring(response: 0.3, dampingFraction: 0.4)
+                                        .delay(i < pin.count ? 0.05 : 0),
+                                    value: pin.count
+                                )
                         }
                     }
-                    .offset(x: shake ? -8 : 0)
+                    .offset(x: shake ? -10 : 0)
                     .padding(.top, 4)
 
                     // Error message
@@ -186,10 +190,12 @@ struct PINEntryView: View {
             withAnimation(.default) {
                 showError = true
             }
-            withAnimation(.linear(duration: 0.05).repeatCount(5, autoreverses: true)) {
+            let errorHaptic = UINotificationFeedbackGenerator()
+            errorHaptic.notificationOccurred(.error)
+            withAnimation(.linear(duration: 0.05).repeatCount(7, autoreverses: true)) {
                 shake = true
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                 shake = false
             }
 

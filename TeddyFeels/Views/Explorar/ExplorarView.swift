@@ -1,19 +1,21 @@
 import SwiftUI
 
 struct ExplorarView: View {
+    @State private var cardsAppeared = false
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: TeddyTheme.spacingMD) {
-                    // Bear banner
+                    // Bear banner with animated bear
                     TeddyBearBanner(
                         imageName: "oso_Walden",
                         message: "Descubre tips, juegos y todo sobre cómo funcionan tus emociones"
                     )
                     .padding(.horizontal, TeddyTheme.screenPadding)
-                .iPadReadableWidth()
+                    .iPadReadableWidth()
 
-                    // Section cards
+                    // Section cards — staggered entrance
                     VStack(spacing: TeddyTheme.spacingMD) {
                         NavigationLink {
                             TipsGlobalesView()
@@ -23,7 +25,8 @@ struct ExplorarView: View {
                                 iconColor: .orange,
                                 title: "Tips de Bienestar",
                                 subtitle: "Más de 80 consejos para sentirte mejor",
-                                bgColor: Color(hex: "FFF7ED")
+                                bgColor: Color(hex: "FFF7ED"),
+                                index: 0
                             )
                         }
 
@@ -35,7 +38,8 @@ struct ExplorarView: View {
                                 iconColor: .pink,
                                 title: "La Regla 3:1",
                                 subtitle: "Aprende a balancear tus emociones con un juego",
-                                bgColor: Color(hex: "FDF2F8")
+                                bgColor: Color(hex: "FDF2F8"),
+                                index: 1
                             )
                         }
 
@@ -47,12 +51,13 @@ struct ExplorarView: View {
                                 iconColor: TeddyTheme.primary,
                                 title: "Sobre Teddy",
                                 subtitle: "La ciencia detrás de tu amigo inteligente",
-                                bgColor: Color(hex: "EEF2FF")
+                                bgColor: Color(hex: "EEF2FF"),
+                                index: 2
                             )
                         }
                     }
                     .padding(.horizontal, TeddyTheme.screenPadding)
-                .iPadReadableWidth()
+                    .iPadReadableWidth()
                 }
                 .padding(.top, TeddyTheme.spacingMD)
                 .padding(.bottom, 100)
@@ -61,17 +66,23 @@ struct ExplorarView: View {
             .navigationBarTitleDisplayMode(.large)
         }
         .background { TeddyAnimatedBackground().ignoresSafeArea() }
+        .onAppear {
+            withAnimation(TeddyTheme.gentleSpring.delay(0.2)) {
+                cardsAppeared = true
+            }
+        }
     }
 
-    private func explorarCard(icon: String, iconColor: Color, title: String, subtitle: String, bgColor: Color) -> some View {
+    private func explorarCard(icon: String, iconColor: Color, title: String, subtitle: String, bgColor: Color, index: Int) -> some View {
         HStack(spacing: TeddyTheme.spacingMD) {
+            // Large icon area with color background
             ZStack {
-                RoundedRectangle(cornerRadius: 14)
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .fill(bgColor)
-                    .frame(width: 56, height: 56)
+                    .frame(width: 64, height: 64)
 
                 Image(systemName: icon)
-                    .font(.system(size: 24, weight: .semibold))
+                    .font(.system(size: 28, weight: .semibold))
                     .foregroundColor(iconColor)
             }
 
@@ -93,9 +104,9 @@ struct ExplorarView: View {
                 .foregroundColor(TeddyTheme.textTertiary)
         }
         .padding(TeddyTheme.cardPadding)
-        .background(TeddyTheme.glassFill)
-        .background(.ultraThinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: TeddyTheme.cardRadius))
-        .shadow(color: TeddyTheme.cardShadow.color, radius: TeddyTheme.cardShadow.radius, x: 0, y: TeddyTheme.cardShadow.y)
+        .elevatedCard()
+        .opacity(cardsAppeared ? 1 : 0)
+        .offset(y: cardsAppeared ? 0 : 30)
+        .animation(TeddyTheme.gentleSpring.delay(Double(index) * 0.1), value: cardsAppeared)
     }
 }

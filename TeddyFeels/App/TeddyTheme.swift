@@ -1,16 +1,20 @@
 import SwiftUI
 
 enum TeddyTheme {
-    // MARK: - Adaptive Colors (Light / Dark)
+    // MARK: - Core Brand Colors
 
     static let primary = Color(hex: "6C63FF")
     static let primaryLight = Color(hex: "8B83FF")
+    static let accent = Color(hex: "FF8A5C")       // Coral cálido — secundario de marca
+    static let accentLight = Color(hex: "FFBA93")
     static let secondary = Color(hex: "FF6B6B")
     static let success = Color(hex: "22C55E")
     static let warning = Color(hex: "F59E0B")
 
-    static let background = Color(light: "F8F7FC", dark: "0F0A1E")
-    static let surface = Color(light: "FFFFFF", dark: "1E1B2E")
+    // MARK: - Adaptive Colors (Light / Dark)
+
+    static let background = Color(light: "FFF8F3", dark: "0F0A1E")    // Crema cálido
+    static let surface = Color(light: "FFFCF9", dark: "1E1B2E")       // Blanco cálido
     static let textPrimary = Color(light: "1A1A2E", dark: "F5F5F7")
     static let textSecondary = Color(light: "6B7280", dark: "A1A1AA")
     static let textTertiary = Color(light: "9CA3AF", dark: "6B6B78")
@@ -18,8 +22,8 @@ enum TeddyTheme {
 
     // MARK: - Gradient Background (Adaptive)
 
-    static let gradientTop = Color(light: "FFE5EC", dark: "0F0A1E")
-    static let gradientBottom = Color(light: "E8E0FF", dark: "1A1035")
+    static let gradientTop = Color(light: "FFF0E6", dark: "0F0A1E")     // Durazno suave
+    static let gradientBottom = Color(light: "F0E6FF", dark: "1A1035")   // Lavanda
     static let gradientAccent1 = Color(hex: "FFC371")    // Coral
     static let gradientAccent2 = Color(hex: "81FFEF")    // Cyan
     static let gradientAccent3 = Color(hex: "F067B4")    // Magenta
@@ -36,7 +40,6 @@ enum TeddyTheme {
 
     static let glassFillLight = Color.white.opacity(0.55)
     static let glassFillDark = Color.white.opacity(0.08)
-    /// Adaptive glass fill — use in views that read colorScheme
     static let glassFill = Color(UIColor { traits in
         traits.userInterfaceStyle == .dark
             ? UIColor.white.withAlphaComponent(0.08)
@@ -72,16 +75,16 @@ enum TeddyTheme {
     // MARK: - Typography
 
     static func heroTitle() -> Font {
-        .system(size: 34, weight: .black, design: .rounded)
+        .system(size: 40, weight: .black, design: .rounded)
     }
     static func screenTitle() -> Font {
         .system(size: 28, weight: .bold, design: .rounded)
     }
     static func sectionTitle() -> Font {
-        .system(size: 22, weight: .bold, design: .rounded)
+        .system(size: 20, weight: .bold, design: .rounded)
     }
     static func cardTitle() -> Font {
-        .system(size: 17, weight: .semibold, design: .rounded)
+        .system(size: 15, weight: .semibold, design: .rounded)
     }
     static func body() -> Font {
         .system(size: 16, weight: .regular, design: .rounded)
@@ -90,10 +93,13 @@ enum TeddyTheme {
         .system(size: 16, weight: .semibold, design: .rounded)
     }
     static func caption() -> Font {
-        .system(size: 13, weight: .medium, design: .rounded)
+        .system(size: 12, weight: .medium, design: .rounded)
     }
     static func badge() -> Font {
         .system(size: 11, weight: .bold, design: .rounded)
+    }
+    static func jumboScore() -> Font {
+        .system(size: 48, weight: .black, design: .rounded)
     }
 
     // MARK: - Spacing
@@ -104,19 +110,30 @@ enum TeddyTheme {
     static let spacingLG: CGFloat = 24
     static let spacingXL: CGFloat = 32
     static let spacingXXL: CGFloat = 48
+    static let spacingHuge: CGFloat = 64
     static let cardPadding: CGFloat = 20
     static let screenPadding: CGFloat = 20
 
     // MARK: - Shadows
 
-    static let cardShadow = Shadow(color: .black.opacity(0.12), radius: 15, y: 6)
+    static let cardShadow = Shadow(color: .black.opacity(0.10), radius: 12, y: 4)
     static let elevatedShadow = Shadow(color: .black.opacity(0.15), radius: 20, y: 8)
+    static let glowShadow = Shadow(color: .black.opacity(0.06), radius: 24, y: 0)
 
     // MARK: - Corner Radius
 
-    static let cardRadius: CGFloat = 25
+    static let cardRadius: CGFloat = 22
+    static let cardRadiusLG: CGFloat = 28
     static let buttonRadius: CGFloat = 16
     static let smallRadius: CGFloat = 12
+
+    // MARK: - Animation Tokens
+
+    static let bounceSpring = Animation.spring(response: 0.4, dampingFraction: 0.5)
+    static let gentleSpring = Animation.spring(response: 0.6, dampingFraction: 0.7)
+    static let snappySpring = Animation.spring(response: 0.25, dampingFraction: 0.65)
+    static let floatingLoop = Animation.easeInOut(duration: 3.0).repeatForever(autoreverses: true)
+    static let breathingLoop = Animation.easeInOut(duration: 2.5).repeatForever(autoreverses: true)
 
     struct Shadow {
         let color: Color
@@ -128,7 +145,6 @@ enum TeddyTheme {
 // MARK: - Adaptive Color Helper
 
 extension Color {
-    /// Creates an adaptive color from light and dark hex values
     init(light: String, dark: String) {
         self.init(UIColor { traits in
             traits.userInterfaceStyle == .dark
@@ -141,6 +157,7 @@ extension Color {
 // MARK: - Animated Background View
 
 struct TeddyAnimatedBackground: View {
+    var emotion: Emocion? = nil
     @State private var animate = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.colorScheme) private var colorScheme
@@ -149,9 +166,16 @@ struct TeddyAnimatedBackground: View {
     private var accentOpacity2: Double { colorScheme == .dark ? 0.10 : 0.20 }
     private var accentOpacity3: Double { colorScheme == .dark ? 0.12 : 0.15 }
 
+    private var emotionBlend: Color {
+        emotion?.color.opacity(0.15) ?? .clear
+    }
+
     var body: some View {
         ZStack {
+            // Base gradient, blended with emotion color when set
             TeddyTheme.backgroundGradient
+
+            emotionBlend
 
             Circle()
                 .fill(TeddyTheme.gradientAccent1.opacity(accentOpacity1))
@@ -176,6 +200,7 @@ struct TeddyAnimatedBackground: View {
         }
         .ignoresSafeArea()
         .drawingGroup()
+        .animation(.easeInOut(duration: 1.5), value: emotion)
         .onAppear {
             guard !reduceMotion else { return }
             withAnimation(.easeInOut(duration: 8).repeatForever(autoreverses: true)) {
@@ -185,7 +210,46 @@ struct TeddyAnimatedBackground: View {
     }
 }
 
-// MARK: - Glass Card Modifier
+// MARK: - Solid Card Modifier (replaces glassCard as default)
+
+struct SolidCardModifier: ViewModifier {
+    var color: Color
+    var cornerRadius: CGFloat = TeddyTheme.cardRadius
+
+    func body(content: Content) -> some View {
+        content
+            .background(color)
+            .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+            .shadow(
+                color: TeddyTheme.cardShadow.color,
+                radius: TeddyTheme.cardShadow.radius,
+                x: 0,
+                y: TeddyTheme.cardShadow.y
+            )
+    }
+}
+
+// MARK: - Elevated Card Modifier
+
+struct ElevatedCardModifier: ViewModifier {
+    var cornerRadius: CGFloat = TeddyTheme.cardRadius
+
+    @Environment(\.colorScheme) private var colorScheme
+
+    func body(content: Content) -> some View {
+        content
+            .background(TeddyTheme.surface)
+            .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+            .shadow(
+                color: TeddyTheme.elevatedShadow.color,
+                radius: TeddyTheme.elevatedShadow.radius,
+                x: 0,
+                y: TeddyTheme.elevatedShadow.y
+            )
+    }
+}
+
+// MARK: - Glass Card Modifier (retained for floating overlays only)
 
 struct GlassCardModifier: ViewModifier {
     var tintColor: Color = .clear
@@ -240,11 +304,18 @@ struct GlassCardModifier: ViewModifier {
 }
 
 extension View {
+    func solidCard(color: Color, cornerRadius: CGFloat = TeddyTheme.cardRadius) -> some View {
+        modifier(SolidCardModifier(color: color, cornerRadius: cornerRadius))
+    }
+
+    func elevatedCard(cornerRadius: CGFloat = TeddyTheme.cardRadius) -> some View {
+        modifier(ElevatedCardModifier(cornerRadius: cornerRadius))
+    }
+
     func glassCard(tint: Color = .clear, tintOpacity: Double = 0.12) -> some View {
         modifier(GlassCardModifier(tintColor: tint, tintOpacity: tintOpacity))
     }
 
-    /// Constrains content width on iPad for better readability
     func iPadReadableWidth() -> some View {
         modifier(iPadReadableWidthModifier())
     }

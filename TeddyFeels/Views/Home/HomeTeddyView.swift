@@ -29,10 +29,11 @@ struct HomeTeddyView: View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: TeddyTheme.spacingLG) {
-                    // Bear greeting banner - bear changes based on current emotion
+                    // Hero: Bear centered with greeting
                     TeddyBearBanner(
                         imageName: emotionVM.emocionActual.imageName(for: bearVoice.selectedCharacter),
                         message: greeting,
+                        imageSize: 160,
                         onTap: { bearVoice.replay(for: "Inicio") }
                     )
 
@@ -44,7 +45,7 @@ struct HomeTeddyView: View {
                         TeddySectionHeader(title: "¿Cómo te sientes?")
 
                         LazyVGrid(columns: gridColumns, spacing: TeddyTheme.spacingSM) {
-                            ForEach(Emocion.allCases) { emocion in
+                            ForEach(Array(Emocion.allCases.enumerated()), id: \.element.id) { index, emocion in
                                 TeddyEmotionCard(
                                     emocion: emocion,
                                     isSelected: emotionVM.emocionActual == emocion,
@@ -55,6 +56,10 @@ struct HomeTeddyView: View {
                                     confettiCounter += 1
                                     selectedEmocion = emocion
                                 }
+                                .animation(
+                                    TeddyTheme.gentleSpring.delay(Double(index) * 0.05),
+                                    value: emotionVM.emocionActual
+                                )
                             }
                         }
                     }
@@ -64,9 +69,6 @@ struct HomeTeddyView: View {
                 .padding(.top, TeddyTheme.spacingMD)
                 .padding(.bottom, 100)
             }
-            .navigationTitle("Teddy Feels")
-            .navigationBarTitleDisplayMode(.large)
-            .teddyCelebration(counter: $confettiCounter)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -77,8 +79,13 @@ struct HomeTeddyView: View {
                     }
                 }
             }
+            .navigationBarTitleDisplayMode(.inline)
+            .teddyCelebration(counter: $confettiCounter)
         }
-        .background { TeddyAnimatedBackground().ignoresSafeArea() }
+        .background {
+            TeddyAnimatedBackground(emotion: emotionVM.emocionActual)
+                .ignoresSafeArea()
+        }
         .sheet(item: $selectedEmocion) { emocion in
             DetalleSheet(emocion: emocion)
         }

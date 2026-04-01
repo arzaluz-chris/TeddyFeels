@@ -10,6 +10,14 @@ struct CharacterPickerView: View {
     @State private var previewPlayer: AVAudioPlayer?
     @State private var isPreviewPlaying = false
 
+    // Staggered entrance
+    @State private var titleProgress: Int = 0
+    @State private var danAppeared = false
+    @State private var daniAppeared = false
+    @State private var controlsAppeared = false
+
+    private let titleText = Array("Elige tu compañero")
+
     var body: some View {
         ZStack {
             TeddyAnimatedBackground()
@@ -17,31 +25,50 @@ struct CharacterPickerView: View {
 
             ScrollView {
                 VStack(spacing: TeddyTheme.spacingLG) {
-                    Spacer(minLength: TeddyTheme.spacingXL)
+                    Spacer(minLength: TeddyTheme.spacingHuge)
 
-                    Image("oso_Bienvenida")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 300, height: 300)
-                        .scaleEffect(showContent ? 1.0 : 0.5)
-                        .opacity(showContent ? 1.0 : 0)
-
+                    // Title with typewriter effect
                     VStack(spacing: TeddyTheme.spacingSM) {
-                        Text("¡Hola! Soy Teddy")
-                            .font(TeddyTheme.screenTitle())
-                            .foregroundColor(TeddyTheme.textPrimary)
+                        HStack(spacing: 1) {
+                            ForEach(Array(titleText.enumerated()), id: \.offset) { index, char in
+                                Text(String(char))
+                                    .font(TeddyTheme.screenTitle())
+                                    .foregroundColor(TeddyTheme.textPrimary)
+                                    .opacity(index < titleProgress ? 1 : 0)
+                                    .animation(
+                                        .spring(response: 0.3, dampingFraction: 0.7)
+                                            .delay(Double(index) * 0.03),
+                                        value: titleProgress
+                                    )
+                            }
+                        }
 
                         Text("¿Con qué voz quieres que te hable?")
                             .font(TeddyTheme.body())
                             .foregroundColor(TeddyTheme.textSecondary)
+                            .opacity(controlsAppeared ? 1 : 0)
                     }
-                    .opacity(showContent ? 1.0 : 0)
 
+                    // Character cards — slide in from sides
                     HStack(spacing: TeddyTheme.spacingLG) {
-                        characterCard(character: .dan, imageName: "osito_feliz", label: "Dan")
-                        characterCard(character: .dani, imageName: "osita_feliz", label: "Dani")
+                        characterCard(
+                            character: .dan,
+                            imageName: "osito_feliz",
+                            label: "Dan",
+                            subtitle: "Aventurero"
+                        )
+                        .offset(x: danAppeared ? 0 : -100)
+                        .opacity(danAppeared ? 1 : 0)
+
+                        characterCard(
+                            character: .dani,
+                            imageName: "osita_feliz",
+                            label: "Dani",
+                            subtitle: "Curiosa"
+                        )
+                        .offset(x: daniAppeared ? 0 : 100)
+                        .opacity(daniAppeared ? 1 : 0)
                     }
-                    .opacity(showContent ? 1.0 : 0)
 
                     // Preview button
                     Button {
@@ -49,18 +76,19 @@ struct CharacterPickerView: View {
                     } label: {
                         HStack(spacing: TeddyTheme.spacingSM) {
                             Image(systemName: isPreviewPlaying ? "speaker.wave.2.fill" : "play.circle.fill")
-                                .font(.system(size: 20))
+                                .font(.system(size: 22, weight: .semibold))
                             Text(isPreviewPlaying ? "Escuchando..." : "Escuchar voz")
                                 .font(TeddyTheme.bodyBold())
                         }
                         .foregroundColor(TeddyTheme.primary)
-                        .padding(.vertical, TeddyTheme.spacingSM)
+                        .padding(.vertical, TeddyTheme.spacingSM + 2)
                         .padding(.horizontal, TeddyTheme.spacingLG)
                         .background(TeddyTheme.primary.opacity(0.1))
                         .clipShape(Capsule())
                     }
                     .disabled(isPreviewPlaying)
-                    .opacity(showContent ? 1.0 : 0)
+                    .opacity(controlsAppeared ? 1 : 0)
+                    .scaleEffect(controlsAppeared ? 1 : 0.8)
 
                     TeddyButton(title: "¡Empezar!", icon: "play.fill") {
                         stopPreview()
@@ -71,7 +99,8 @@ struct CharacterPickerView: View {
                         }
                     }
                     .padding(.horizontal, TeddyTheme.spacingXL)
-                    .opacity(showContent ? 1.0 : 0)
+                    .opacity(controlsAppeared ? 1 : 0)
+                    .scaleEffect(controlsAppeared ? 1 : 0.8)
 
                     Spacer(minLength: TeddyTheme.spacingLG)
                 }
@@ -82,43 +111,96 @@ struct CharacterPickerView: View {
             .teddyCelebration(counter: $confettiCounter)
         }
         .onAppear {
-            withAnimation(.spring(response: 0.8, dampingFraction: 0.7).delay(0.3)) {
-                showContent = true
-            }
+            startEntranceSequence()
         }
         .onDisappear {
             stopPreview()
         }
     }
 
-    private func characterCard(character: BearVoiceService.Character, imageName: String, label: String) -> some View {
+    // MARK: - Entrance Sequence
+
+    private func startEntranceSequence() {
+        // Title typewriter
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            titleProgress = titleText.count
+        }
+
+        // Dan slides in from left
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            withAnimation(TeddyTheme.bounceSpring) {
+                danAppeared = true
+            }
+        }
+
+        // Dani slides in from right (staggered)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            withAnimation(TeddyTheme.bounceSpring) {
+                daniAppeared = true
+            }
+        }
+
+        // Controls fade in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
+            withAnimation(TeddyTheme.gentleSpring) {
+                controlsAppeared = true
+            }
+        }
+    }
+
+    // MARK: - Character Card
+
+    private func characterCard(character: BearVoiceService.Character, imageName: String, label: String, subtitle: String) -> some View {
         Button {
-            withAnimation(.spring(response: 0.3)) {
+            withAnimation(TeddyTheme.bounceSpring) {
                 selectedCharacter = character
             }
             stopPreview()
-            let impact = UIImpactFeedbackGenerator(style: .light)
+            let impact = UIImpactFeedbackGenerator(style: .medium)
             impact.impactOccurred()
         } label: {
             VStack(spacing: TeddyTheme.spacingSM) {
-                Image(imageName)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 110, height: 110)
-                Text(label)
-                    .font(TeddyTheme.screenTitle())
-                    .foregroundColor(TeddyTheme.textPrimary)
+                TeddyAnimatedBear(
+                    imageName: imageName,
+                    size: 120,
+                    style: selectedCharacter == character ? .breathing : .none
+                )
+                .frame(height: 120)
+                .saturation(selectedCharacter == character ? 1.0 : 0.6)
+                .scaleEffect(selectedCharacter == character ? 1.0 : 0.9)
+
+                VStack(spacing: 2) {
+                    Text(label)
+                        .font(TeddyTheme.screenTitle())
+                        .foregroundColor(TeddyTheme.textPrimary)
+
+                    Text(subtitle)
+                        .font(TeddyTheme.caption())
+                        .foregroundColor(TeddyTheme.textSecondary)
+                }
             }
-            .frame(width: 180, height: 180)
-            .background(selectedCharacter == character ? TeddyTheme.primary.opacity(0.1) : TeddyTheme.surface)
-            .clipShape(RoundedRectangle(cornerRadius: TeddyTheme.cardRadius))
-            .overlay(
-                RoundedRectangle(cornerRadius: TeddyTheme.cardRadius)
-                    .stroke(selectedCharacter == character ? TeddyTheme.primary : TeddyTheme.border, lineWidth: selectedCharacter == character ? 3 : 1)
+            .frame(width: 170, height: 210)
+            .background(
+                selectedCharacter == character
+                    ? TeddyTheme.primary.opacity(0.08)
+                    : TeddyTheme.surface
             )
-            .shadow(color: TeddyTheme.cardShadow.color, radius: TeddyTheme.cardShadow.radius, x: 0, y: TeddyTheme.cardShadow.y)
-            .scaleEffect(selectedCharacter == character ? 1.05 : 1.0)
+            .clipShape(RoundedRectangle(cornerRadius: TeddyTheme.cardRadius, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: TeddyTheme.cardRadius, style: .continuous)
+                    .stroke(
+                        selectedCharacter == character ? TeddyTheme.primary : TeddyTheme.border,
+                        lineWidth: selectedCharacter == character ? 2.5 : 1
+                    )
+            )
+            .shadow(
+                color: selectedCharacter == character ? TeddyTheme.primary.opacity(0.2) : TeddyTheme.cardShadow.color,
+                radius: selectedCharacter == character ? 16 : TeddyTheme.cardShadow.radius,
+                x: 0,
+                y: TeddyTheme.cardShadow.y
+            )
         }
+        .animation(TeddyTheme.gentleSpring, value: selectedCharacter)
     }
 
     // MARK: - Preview Audio
@@ -129,36 +211,19 @@ struct CharacterPickerView: View {
         let fileName = "\(prefix)_bienvenida"
         let folder = character == .dan ? "Dan" : "Dani"
 
-        print("🔊 [Preview] Buscando: \(fileName).m4a para \(character.rawValue)")
-
-        // Try multiple subdirectory strategies
         let subdirs = ["Resources/Audio/\(folder)", "Audio/\(folder)"]
         var foundURL: URL?
         for subdir in subdirs {
             if let url = Bundle.main.url(forResource: fileName, withExtension: "m4a", subdirectory: subdir) {
-                print("🔊 [Preview] ✅ Encontrado en: \(subdir)")
                 foundURL = url
                 break
             }
         }
-        // Flat fallback
         if foundURL == nil {
             foundURL = Bundle.main.url(forResource: fileName, withExtension: "m4a")
-            if foundURL != nil {
-                print("🔊 [Preview] ✅ Encontrado sin subdirectory")
-            }
         }
 
-        guard let url = foundURL else {
-            print("🔊 [Preview] ❌ No se encontró: \(fileName).m4a")
-            // Log all m4a in bundle
-            if let all = Bundle.main.urls(forResourcesWithExtension: "m4a", subdirectory: nil) {
-                print("🔊 [Preview] Archivos .m4a en bundle: \(all.map { $0.lastPathComponent })")
-            } else {
-                print("🔊 [Preview] ⚠️ No hay archivos .m4a en el bundle")
-            }
-            return
-        }
+        guard let url = foundURL else { return }
 
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
@@ -167,13 +232,11 @@ struct CharacterPickerView: View {
             previewPlayer?.delegate = PreviewDelegate.shared
             PreviewDelegate.shared.onFinish = {
                 self.isPreviewPlaying = false
-                print("🔊 [Preview] ⏹ Preview terminado")
             }
-            let started = previewPlayer?.play() ?? false
+            previewPlayer?.play()
             isPreviewPlaying = true
-            print("🔊 [Preview] ▶️ play() returned: \(started) — duración: \(String(format: "%.1f", previewPlayer?.duration ?? 0))s")
         } catch {
-            print("🔊 [Preview] ❌ Error: \(error)")
+            print("🔊 [Preview] Error: \(error)")
         }
     }
 
