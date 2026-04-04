@@ -30,15 +30,21 @@ struct InvestigacionExtensaView: View {
                             .font(TeddyTheme.cardTitle())
                             .foregroundColor(TeddyTheme.primary)
 
-                        ForEach(InvestigacionData.fuentes, id: \.self) { fuente in
-                            HStack(alignment: .top, spacing: TeddyTheme.spacingSM) {
-                                Circle()
-                                    .fill(TeddyTheme.primary)
-                                    .frame(width: 6, height: 6)
-                                    .padding(.top, 6)
-                                Text(fuente)
-                                    .font(TeddyTheme.body())
-                                    .foregroundColor(TeddyTheme.textSecondary)
+                        ForEach(Array(InvestigacionData.fuentes.enumerated()), id: \.offset) { _, fuente in
+                            VStack(alignment: .leading, spacing: 4) {
+                                HStack(alignment: .top, spacing: TeddyTheme.spacingSM) {
+                                    Circle()
+                                        .fill(TeddyTheme.primary)
+                                        .frame(width: 6, height: 6)
+                                        .padding(.top, 6)
+                                    Text(fuente.descripcion)
+                                        .font(TeddyTheme.body())
+                                        .foregroundColor(TeddyTheme.textSecondary)
+                                }
+                                Text(fuente.cita)
+                                    .font(TeddyTheme.caption())
+                                    .foregroundColor(TeddyTheme.textTertiary)
+                                    .padding(.leading, 6 + TeddyTheme.spacingSM)
                             }
                         }
                     }
@@ -46,19 +52,25 @@ struct InvestigacionExtensaView: View {
 
                 // Credits
                 TeddyCard {
-                    VStack(spacing: TeddyTheme.spacingSM) {
+                    VStack(spacing: TeddyTheme.spacingMD) {
+                        Image("logo_escuela_png")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 80)
+
                         Text("CREADORES")
                             .font(TeddyTheme.badge())
                             .foregroundColor(TeddyTheme.textTertiary)
+
                         ForEach(InvestigacionData.creadores, id: \.self) { creador in
                             Text(creador)
                                 .font(TeddyTheme.cardTitle())
                                 .foregroundColor(TeddyTheme.textPrimary)
                         }
-                        Text(InvestigacionData.copyright)
+
+                        Text(InvestigacionData.institucion)
                             .font(TeddyTheme.caption())
                             .foregroundColor(TeddyTheme.textTertiary)
-                            .padding(.top, TeddyTheme.spacingXS)
                     }
                     .frame(maxWidth: .infinity)
                 }

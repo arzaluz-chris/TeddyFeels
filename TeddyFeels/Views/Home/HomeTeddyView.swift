@@ -2,6 +2,7 @@ import SwiftUI
 import ConfettiSwiftUI
 
 struct HomeTeddyView: View {
+    @Binding var selectedTab: Int
     @Environment(BearVoiceService.self) private var bearVoice
     @State private var emotionVM = EmotionViewModel()
     @State private var selectedEmocion: Emocion?
@@ -38,7 +39,11 @@ struct HomeTeddyView: View {
                     )
 
                     // Energy score widget
-                    TeddyScoreWidget(score: emotionVM.puntajeBienestar)
+                    TeddyScoreWidget(score: emotionVM.puntajeBienestar) {
+                        withAnimation(TeddyTheme.snappySpring) {
+                            selectedTab = 3
+                        }
+                    }
 
                     // Emotion section
                     VStack(alignment: .leading, spacing: TeddyTheme.spacingMD) {

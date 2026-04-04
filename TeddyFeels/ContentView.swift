@@ -34,11 +34,11 @@ struct ContentView: View {
             // Tab content
             Group {
                 switch selectedTab {
-                case 0: HomeTeddyView()
+                case 0: HomeTeddyView(selectedTab: $selectedTab)
                 case 1: DiarioTabView()
                 case 2: ExplorarView()
                 case 3: IAAnalisisDashboard()
-                default: HomeTeddyView()
+                default: HomeTeddyView(selectedTab: $selectedTab)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)

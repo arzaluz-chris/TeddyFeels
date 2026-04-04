@@ -17,12 +17,27 @@ enum InvestigacionData {
     Cada botón y color fue elegido para que te sientas en paz y feliz.
     """
 
-    static let fuentes: [String] = [
-        "Daniel Goleman: Nos enseñó sobre la Inteligencia Emocional.",
-        "Donald Winnicott: Nos explicó por qué los peluches nos hacen sentir bien.",
-        "James Pennebaker: Descubrió que escribir ayuda a sanar el corazón.",
-        "UNICEF: Nos dice que la salud de los niños es lo más importante.",
-        "Guías de Apple: Para que Teddy sea fácil de usar."
+    static let fuentes: [(descripcion: String, cita: String)] = [
+        (
+            "Nos enseñó sobre la Inteligencia Emocional.",
+            "Goleman, D. (1995). Emotional Intelligence: Why It Can Matter More Than IQ. Bantam Books."
+        ),
+        (
+            "Nos explicó por qué los peluches nos hacen sentir bien.",
+            "Winnicott, D.W. (1971). Playing and Reality. Tavistock Publications."
+        ),
+        (
+            "Descubrió que escribir ayuda a sanar el corazón.",
+            "Pennebaker, J.W. (1997). Opening Up: The Healing Power of Expressing Emotions. Guilford Press."
+        ),
+        (
+            "Nos dice que la salud emocional de los niños es lo más importante.",
+            "UNICEF. (2021). The State of the World's Children: On My Mind — Promoting, protecting and caring for children's mental health."
+        ),
+        (
+            "Para que Teddy sea fácil y seguro de usar.",
+            "Apple Inc. (2024). Human Interface Guidelines. developer.apple.com/design/human-interface-guidelines"
+        )
     ]
 
     static let creadores = [
@@ -30,5 +45,5 @@ enum InvestigacionData {
         "Santiago García Martínez"
     ]
 
-    static let copyright = "© 2026 Teddy Feels Project - Innovación Educativa"
+    static let institucion = "Colegio Walden Dos de México"
 }
